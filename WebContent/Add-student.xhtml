@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title><ui:insert name="title">Add a New Student</ui:insert></title>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="default" name="css/add-account-style.css" />
+	<ui:debug hotkey="x"
+		rendered="#{initParam['javax.faces.PROJECT_STAGE'] 
+eq 'Development'}" />
+
+	<div id="header">
+		<ui:insert name="header">
+    	Add a Student
+		</ui:insert>
+	</div>
+
+
+	<div id="content">
+		<ui:insert name="content">
+			<h:form>
+				<h:outputLabel for="firstname">Student's First Name : </h:outputLabel>
+				<h:inputText value="#{student.firstname}" id="firstname"
+					required="true" requiredMessage="Can't be empty"
+					style="display: inline;text-align: center;" />
+				<h:message for="firstname" style=" color: red" />
+				<br />
+				<h:outputLabel for="lastname">Student's Last Name : </h:outputLabel>
+				<h:inputText value="#{student.lastname}" id="lastname"
+					style="display: inline;text-align: center;" required="true"
+					requiredMessage="Can't be empty" />
+				<h:message for="lastname" style=" color: red" />
+				<br />
+				<h:outputLabel for="email">Student's Email : </h:outputLabel>
+				<h:inputText value="#{student.email}" id="email"
+					style="display: inline;text-align: center;" required="true"
+					requiredMessage="Can't be empty"
+					validatorMessage="Incorrect Mail Format">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</h:inputText>
+				<h:message for="email" style=" color: red" />
+				<br />
+				<h:commandButton action="List-students?faces-redirect=true"
+					value="Submit">
+					<f:actionListener binding="#{studentManager.addStudent(student)}" />
+				</h:commandButton>
+				<br/>
+				<h:commandButton action="List-students?faces-redirect=true"
+					value="Cancel" immediate="true"/>
+			</h:form>
+		</ui:insert>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+			<!--     	Footer area.  See comments below this line in the source. -->
+			<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
+			<!--<ui:include src="footer.xhtml"/>  -->
+		</ui:insert>
+	</div>
+
+</h:body>
+
+</html>
